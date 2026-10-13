@@ -1,0 +1,82 @@
+# FPGBC_juego
+
+## 1. Descripción del proyecto
+
+Este repositorio contiene el desarrollo del juego para el proyecto FPGBC, una consola basada en FPGA con una arquitectura inspirada en Game Boy y Game Boy Color.
+
+El desarrollo del juego utiliza C y herramientas del ecosistema Game Boy para crear gráficos, diseñar mapas, compilar una ROM y realizar pruebas mediante emulación.
+
+## 2. Estado actual del desarrollo
+
+El repositorio contiene un prototipo que incluye:
+
+- Movimiento del jugador mediante los controles direccionales.
+- Personaje compuesto por cuatro sprites de 8 × 8 píxeles.
+- Carga de gráficos para el personaje y el escenario.
+- Mapa de nivel de 32 × 16 tiles.
+- Desplazamiento horizontal del fondo.
+- Generación de una ROM con extensión `.gb`.
+
+El equipo también ha realizado pruebas de algunos niveles mediante emulación. La validación completa en la consola FPGA física está pendiente de documentar.
+
+## 3. Herramientas de desarrollo
+
+| Herramienta | Uso |
+|---|---|
+| GBDK | Desarrollo de juegos Game Boy en C. |
+| `lcc` | Compilación del código y generación de la ROM. |
+| BGB | Emulación y pruebas del juego. |
+| GBTD v2.2 | Diseño y exportación de tiles y sprites. |
+| GBMB v1.8 | Diseño y exportación de mapas y niveles. |
+
+Enlaces de descarga:
+
+- [BGB — Emulador de Game Boy](http://bgb.bircd.org/#downloads)
+- [GBTD — Game Boy Tile Designer](http://www.devrs.com/gb/hmgd/gbtd.html)
+- [GBMB — Game Boy Map Builder](http://www.devrs.com/gb/hmgd/gbmb.html)
+
+## 4. Estructura de archivos
+
+- `ejemplo.c`: lógica principal del prototipo.
+- `Tile1.c` y `Tile2.c`: datos gráficos generados con GBTD.
+- `Mapa.c`: conjunto de tiles del escenario.
+- `Nivel1.c`: datos del primer mapa.
+- `Tile1.h`, `Tile2.h`, `Mapa.h` y `Nivel1.h`: declaraciones y dimensiones asociadas a los recursos.
+- `compile.bat`: comando de compilación para Windows.
+- `ejemplo.gb`: ROM generada.
+- `ejemplo.map`: informe de enlazado.
+- `ejemplo.noi`: archivo auxiliar generado durante la compilación.
+
+Los archivos `.gbr` y `.gbm` corresponden a recursos editables de gráficos y mapas, respectivamente.
+
+## 5. Compilación
+
+El archivo `compile.bat` utiliza el compilador `lcc` de GBDK. El comando registrado es:
+
+```bat
+C:\gbdk-win32\gbdk\bin\lcc.exe -Wa-l -Wl-m -Wl-j -o ejemplo.gb ejemplo.c
+```
+
+Para compilar, se debe disponer de una instalación de GBDK compatible con la ruta configurada en el archivo por lotes. Si GBDK está instalado en otra ubicación, será necesario ajustar la ruta.
+
+## 6. Flujo de trabajo
+
+1. Diseñar los gráficos y sprites mediante GBTD.
+2. Construir los mapas de los niveles mediante GBMB.
+3. Integrar los recursos exportados en el código C.
+4. Compilar el proyecto para generar la ROM `.gb`.
+5. Probar la ROM mediante BGB.
+6. Verificar posteriormente la integración con la plataforma FPGA física.
+
+## 7. Trabajo pendiente
+
+- Documentar las pruebas realizadas y sus resultados.
+- Completar el diseño e integración de los niveles.
+- Revisar límites de movimiento y comportamiento del desplazamiento.
+- Incorporar las mecánicas de juego que falten.
+- Verificar la compatibilidad del prototipo con la arquitectura de la consola FPGA.
+- Documentar las pruebas realizadas en hardware.
+
+## 8. Alcance de la documentación
+
+La presencia de una ROM compilada demuestra que existe un resultado de compilación, pero no constituye por sí sola una validación completa del juego. Los resultados de emulación y las pruebas en hardware deben registrarse por separado.
